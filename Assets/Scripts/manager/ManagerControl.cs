@@ -10,10 +10,33 @@ public class ManagerControl : MonoBehaviour {
 	public GameObject carro;
 
 	private int gambiarra = 0;
+
+
+	private static ManagerControl _instance;
+	public static ManagerControl Instance{
+		get{
+
+			if (_instance == null) {
+				_instance = FindObjectOfType (typeof(ManagerControl)) as ManagerControl;
+
+				if (_instance == null) {
+					var go = new GameObject ("_managerControl");
+					DontDestroyOnLoad (go);
+					_instance = go.AddComponent<ManagerControl> ();
+
+				}
+			}
+			return _instance; 
+		}
+	}
+
+
 		// Use this for initialization
 	void Start () {
 		
 	}
+
+
 
 
 	void changeTimeMin(){
@@ -23,7 +46,10 @@ public class ManagerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (gambiarra == 120) {
-			Instantiate(carro, new Vector3(0, 0, 0), Quaternion.identity);
+
+			GameObject newCar = Instantiate (carro, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+			//newCar.GetComponent<Renderer> ().material.color = new Color (0.99F, 0.99F, 0.99F, 1F);
+
 			gambiarra = 0;
 		}
 		gambiarra++;
