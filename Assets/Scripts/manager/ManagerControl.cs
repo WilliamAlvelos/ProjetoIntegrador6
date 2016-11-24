@@ -45,11 +45,10 @@ public class ManagerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (gambiarra == 120) {
-
-			GameObject newCar = Instantiate (carro, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+		if (gambiarra == 200) {
+			//VERIFICAR SE O CARRO VAI PARA O SEM PARAR AI FICA EM X = 45 SE FOR PARA O NORMAL X = -45
+			GameObject newCar = Instantiate (carro, new Vector3(45, 0, 0), Quaternion.identity) as GameObject;
 			//newCar.GetComponent<Renderer> ().material.color = new Color (0.99F, 0.99F, 0.99F, 1F);
-
 			gambiarra = 0;
 		}
 		gambiarra++;

@@ -19,9 +19,7 @@ public class catracaMove : MonoBehaviour {
 			if(this.transform.GetChild (0).gameObject.transform.rotation.x >= 0.70){
 				abre = false;
 			}
-
-			Debug.Log (this.transform.GetChild (0).gameObject.transform.rotation.x);
-
+				
 		} else {
 
 			this.transform.GetChild (0).gameObject.transform.Rotate (new Vector3 (Time.deltaTime * speed * 9, 0, 0));
