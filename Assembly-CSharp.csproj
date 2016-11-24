@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Car\CarManager.cs" />
      <Compile Include="Assets\Scripts\MovimentCamera.cs" />
      <Compile Include="Assets\Scripts\manager\ManagerControl.cs" />
+     <Compile Include="Assets\catracaMove.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
