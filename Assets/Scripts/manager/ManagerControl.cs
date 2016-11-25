@@ -1,15 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ManagerControl : MonoBehaviour {
 
-	public float qtdCarros;
-	public float timeMin;
-	public float timeMax;
+
+	//variaveis para auxilio das contas
+	private float qtdCarros;
+	private float timeMin;
+	private float timeMax;
+
+
+	//sliders
+	public Slider qtdCarros_slider;
+	public Slider timerMax_slider;
+	public Slider timerMin_slider;
+	public Slider semParar_slider;
+
+
+	private GameObject[] carros_pedagio;
+	private int index_carro_pedagio = 0;
 
 	public GameObject carro;
-
-	private int gambiarra = 0;
 
 
 	private static ManagerControl _instance;
@@ -31,26 +43,54 @@ public class ManagerControl : MonoBehaviour {
 	}
 
 
-		// Use this for initialization
+	// Use this for initialization
 	void Start () {
-		
+		qtdCarros = qtdCarros_slider.value;
+
 	}
 
-
-
-
+	void mudaValores(){
+		CancelInvoke ();
+		qtdCarros = qtdCarros_slider.value;
+		InvokeRepeating("criarCarros", qtdCarros*100f/60.0f, qtdCarros*100f/60.0f);
+		Debug.Log (qtdCarros_slider.value);
+	}
 	void changeTimeMin(){
-		
+
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		if (gambiarra == 200) {
-			//VERIFICAR SE O CARRO VAI PARA O SEM PARAR AI FICA EM X = 45 SE FOR PARA O NORMAL X = -45
-			GameObject newCar = Instantiate (carro, new Vector3(45, 0, 0), Quaternion.identity) as GameObject;
-			//newCar.GetComponent<Renderer> ().material.color = new Color (0.99F, 0.99F, 0.99F, 1F);
-			gambiarra = 0;
+		if (qtdCarros != qtdCarros_slider.value) {
+			mudaValores ();
 		}
-		gambiarra++;
+
 	}
+
+	void paraCarros(){
+		for (int i = 0; i < index_carro_pedagio; i++) {
+			carros_pedagio [i].GetComponent<CarManager> ().speed = 0f;
+		}
+	}
+
+	void aceleraCarros(){
+		for (int i = 0; i < index_carro_pedagio; i++) {
+			carros_pedagio [i].GetComponent<CarManager> ().speed = 0f;
+		}
+	}
+
+	void criarCarros(){
+		float rand = Random.Range (0, 101);
+
+		if (rand <= semParar_slider.value * 100) {
+			GameObject newCar = Instantiate (carro, new Vector3 (45, 0, 0), Quaternion.identity) as GameObject;
+		} else {
+			GameObject newCar = Instantiate (carro, new Vector3 (-45, 0, 0), Quaternion.identity) as GameObject;
+			carros_pedagio[index_carro_pedagio] = newCar;
+			index_carro_pedagio++;
+		}
+	}
+
 }
+
+
+
