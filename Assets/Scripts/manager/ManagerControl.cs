@@ -13,8 +13,6 @@ public class ManagerControl : MonoBehaviour {
 
 	//sliders
 	public Slider qtdCarros_slider;
-	public Slider timerMax_slider;
-	public Slider timerMin_slider;
 	public Slider semParar_slider;
 
 
@@ -46,16 +44,19 @@ public class ManagerControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		qtdCarros = qtdCarros_slider.value;
-
 	}
 
 	void mudaValores(){
 		CancelInvoke ();
 		qtdCarros = qtdCarros_slider.value;
-		InvokeRepeating("criarCarros", qtdCarros*100f/60.0f, qtdCarros*100f/60.0f);
+		InvokeRepeating("criarCarros", (qtdCarros - 1)*-800f/60.0f, (qtdCarros - 1)*-800f/60.0f);
 		Debug.Log (qtdCarros_slider.value);
 	}
+
+
+
 	void changeTimeMin(){
+
 
 	}
 
@@ -68,13 +69,13 @@ public class ManagerControl : MonoBehaviour {
 
 	void paraCarros(){
 		for (int i = 0; i < index_carro_pedagio; i++) {
-			carros_pedagio [i].GetComponent<CarManager> ().speed = 0f;
+			carros_pedagio [i].GetComponent<CarManager> ().speed = 0;
 		}
 	}
 
 	void aceleraCarros(){
 		for (int i = 0; i < index_carro_pedagio; i++) {
-			carros_pedagio [i].GetComponent<CarManager> ().speed = 0f;
+			carros_pedagio [i].GetComponent<CarManager> ().speed = 10;
 		}
 	}
 
@@ -85,8 +86,8 @@ public class ManagerControl : MonoBehaviour {
 			GameObject newCar = Instantiate (carro, new Vector3 (45, 0, 0), Quaternion.identity) as GameObject;
 		} else {
 			GameObject newCar = Instantiate (carro, new Vector3 (-45, 0, 0), Quaternion.identity) as GameObject;
-			carros_pedagio[index_carro_pedagio] = newCar;
-			index_carro_pedagio++;
+			//carros_pedagio[index_carro_pedagio] = newCar;
+			//index_carro_pedagio++;
 		}
 	}
 

@@ -19,4 +19,9 @@ public class CarManager : MonoBehaviour {
 		this.transform.GetChild (3).gameObject.transform.Rotate(new Vector3(Time.deltaTime*speed*-9,0,0));
 
 	}
+
+
+	void OnTriggerEnter(Collider other) {
+		Debug.Log ("trigger enter");
+	}
 }
