@@ -20,6 +20,9 @@ public class ManagerControl : MonoBehaviour {
 
 	private static List<GameObject> carros_pedagio;
 
+	public Text tempoCarros;
+	public Text semPararValue;
+
 
 	//private GameObject[] carros_pedagio;
 	private int index_carro_pedagio = 0;
@@ -56,7 +59,7 @@ public class ManagerControl : MonoBehaviour {
 		qtdCarros = qtdCarros_slider.value;
 		float valueCars = ((qtdCarros * 3f)+ 6f);
 		Debug.Log (valueCars);
-
+		tempoCarros.text = "1 carro a cada " + valueCars.ToString("#0.00") + " Segundos";
 		InvokeRepeating("criarCarros", valueCars,valueCars);
 	}
 
@@ -68,6 +71,8 @@ public class ManagerControl : MonoBehaviour {
 	}
 
 	void Update () {
+		semPararValue.text = "Chance de ter sem parar: " + (semParar_slider.value*100).ToString("#0.00") + "%";
+
 		if (qtdCarros != qtdCarros_slider.value) {
 			mudaValores ();
 		}

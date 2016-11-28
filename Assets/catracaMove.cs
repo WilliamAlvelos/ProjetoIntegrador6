@@ -24,7 +24,7 @@ public class catracaMove : MonoBehaviour {
 
 		if (abre) {
 			this.transform.Rotate (new Vector3 (0, 0, Time.deltaTime * speed * 9));
-			Debug.Log ( "a" + this.transform.rotation.z);
+			//Debug.Log ( "a" + this.transform.rotation.z);
 
 			if (this.transform.rotation.z <= -0.0042) {
 				abre = false;
@@ -34,7 +34,7 @@ public class catracaMove : MonoBehaviour {
 		}
 		if(fecha && !abre){
 			this.transform.Rotate (new Vector3 (0, 0, Time.deltaTime * speed * -9));
-			Debug.Log ( "b" + this.transform.rotation.z);
+			//Debug.Log ( "b" + this.transform.rotation.z);
 
 			if (this.transform.rotation.z >= -0.003119439) {
 				aberto = false;

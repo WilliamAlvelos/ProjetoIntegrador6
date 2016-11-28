@@ -33,8 +33,7 @@ public class bastaoCollider : MonoBehaviour {
 		print(Time.time);
 		pago = true;
 		aceleraCarros ();
-		yield return new WaitForSeconds(3f);
-		fecha = true;
+		//yield return new WaitForSeconds(5f);
 
 		//tenta parar todos carros da manager co
 	}
@@ -42,7 +41,7 @@ public class bastaoCollider : MonoBehaviour {
 	void Update () {
 		//transform.Translate(new Vector3(0, 0, Time.deltaTime*speed));
 
-		if (abre) {
+		if (abre && !aberto) {
 
 			if (pago) {
 				this.transform.Rotate (new Vector3 (0, 0, Time.deltaTime * speed * 9));
@@ -53,13 +52,11 @@ public class bastaoCollider : MonoBehaviour {
 			}
 			else
 			{
-				Debug.Log ("bastao collider enter");
-
 				
 			}
 
 		}
-		if(fecha && !abre){
+		else if(fecha && aberto){
 			this.transform.Rotate (new Vector3 (0, 0, Time.deltaTime * speed * -9));
 			Debug.Log (this.transform.rotation.z);
 
@@ -97,8 +94,10 @@ public class bastaoCollider : MonoBehaviour {
 	void OnTriggerExit(Collider other){
 		other.gameObject.AddComponent<CarSemParar> ();
 		other.gameObject.GetComponent<CarSemParar> ().speed = 64;
-
-		Debug.Log (" Collider exit");
+		if (abre) {
+			abre = false;
+		}
+		fecha = true;
 	}
 
 }
