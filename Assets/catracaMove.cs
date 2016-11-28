@@ -40,6 +40,7 @@ public class catracaMove : MonoBehaviour {
 				aberto = false;
 				fecha = false;
 				pago = false;
+				//ManagerControl.Instance.aceleraCarros (); 
 			}
 		}
 	}

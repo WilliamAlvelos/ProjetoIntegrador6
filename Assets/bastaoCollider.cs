@@ -28,7 +28,14 @@ public class bastaoCollider : MonoBehaviour {
 
 	IEnumerator PegaDinheiro(float time) {
 		print(Time.time);
+		Debug.Log (time);
 		yield return new WaitForSeconds(time);
+		print(Time.time);
+		pago = true;
+		aceleraCarros ();
+		yield return new WaitForSeconds(3f);
+		fecha = true;
+
 		//tenta parar todos carros da manager co
 	}
 	// Update is called once per frame
@@ -46,9 +53,9 @@ public class bastaoCollider : MonoBehaviour {
 			}
 			else
 			{
-				float timeToPAY = Random.Range (timerMin_slider.value, timerMax_slider.value);
-				PegaDinheiro(timeToPAY);
-				pago = true;
+				Debug.Log ("bastao collider enter");
+
+				
 			}
 
 		}
@@ -64,14 +71,34 @@ public class bastaoCollider : MonoBehaviour {
 		}
 	}
 
+
+	void paraCarros(){
+		CarManager[] yourScriptArray = FindObjectsOfType(typeof(CarManager)) as CarManager[];
+		foreach (CarManager yourScriptName in yourScriptArray ) {
+			yourScriptName.speed = 0;
+		}
+	}
+
+	void aceleraCarros(){
+		CarManager[] yourScriptArray = FindObjectsOfType(typeof(CarManager)) as CarManager[];
+		foreach (CarManager yourScriptName in yourScriptArray ) {
+			yourScriptName.speed = 64;
+		}
+	}
+
 	void OnTriggerEnter(Collider other){
-		Debug.Log ("bastao collider enter");
+		paraCarros ();
+		//supondo 5s o tempo para a pessoa pagar
+		float timeToPAY = Random.Range (timerMin_slider.value, timerMax_slider.value * 5);
+		StartCoroutine(PegaDinheiro(timeToPAY));
 		abre = true;
 	}
 
 	void OnTriggerExit(Collider other){
+		other.gameObject.AddComponent<CarSemParar> ();
+		other.gameObject.GetComponent<CarSemParar> ().speed = 64;
+
 		Debug.Log (" Collider exit");
-		fecha = true;
 	}
 
 }

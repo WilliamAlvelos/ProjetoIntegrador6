@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 public class ManagerControl : MonoBehaviour {
 
@@ -10,13 +12,16 @@ public class ManagerControl : MonoBehaviour {
 	private float timeMin;
 	private float timeMax;
 
+	private bool first = true;
 
 	//sliders
 	public Slider qtdCarros_slider;
 	public Slider semParar_slider;
 
+	private static List<GameObject> carros_pedagio;
 
-	private GameObject[] carros_pedagio;
+
+	//private GameObject[] carros_pedagio;
 	private int index_carro_pedagio = 0;
 
 	public GameObject carro;
@@ -25,7 +30,6 @@ public class ManagerControl : MonoBehaviour {
 	private static ManagerControl _instance;
 	public static ManagerControl Instance{
 		get{
-
 			if (_instance == null) {
 				_instance = FindObjectOfType (typeof(ManagerControl)) as ManagerControl;
 
@@ -44,13 +48,16 @@ public class ManagerControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		qtdCarros = qtdCarros_slider.value;
+		qtdCarros_slider.maxValue = 0.9f;
 	}
 
 	void mudaValores(){
 		CancelInvoke ();
 		qtdCarros = qtdCarros_slider.value;
-		InvokeRepeating("criarCarros", (qtdCarros - 1)*-800f/60.0f, (qtdCarros - 1)*-800f/60.0f);
-		Debug.Log (qtdCarros_slider.value);
+		float valueCars = ((qtdCarros * 3f)+ 6f);
+		Debug.Log (valueCars);
+
+		InvokeRepeating("criarCarros", valueCars,valueCars);
 	}
 
 
@@ -67,26 +74,41 @@ public class ManagerControl : MonoBehaviour {
 
 	}
 
-	void paraCarros(){
-		for (int i = 0; i < index_carro_pedagio; i++) {
-			carros_pedagio [i].GetComponent<CarManager> ().speed = 0;
+	public void paraCarros(){
+		foreach(GameObject go in carros_pedagio){
+			Debug.Log (go.name);
 		}
 	}
 
-	void aceleraCarros(){
-		for (int i = 0; i < index_carro_pedagio; i++) {
-			carros_pedagio [i].GetComponent<CarManager> ().speed = 10;
+	public void aceleraCarros(){
+		foreach(GameObject go in carros_pedagio){
+			go.GetComponent<CarManager> ().speed = 10;
 		}
 	}
 
 	void criarCarros(){
 		float rand = Random.Range (0, 101);
-
 		if (rand <= semParar_slider.value * 100) {
 			GameObject newCar = Instantiate (carro, new Vector3 (45, 0, 0), Quaternion.identity) as GameObject;
+			newCar.AddComponent<CarSemParar> ();
+			newCar.GetComponent<CarSemParar> ().speed = 64;
+
 		} else {
 			GameObject newCar = Instantiate (carro, new Vector3 (-45, 0, 0), Quaternion.identity) as GameObject;
-			//carros_pedagio[index_carro_pedagio] = newCar;
+			newCar.AddComponent<CarManager> ();
+			if (first) {
+				newCar.GetComponent<CarManager> ().speed = 64;
+			} else {
+				CarManager[] yourScriptArray = FindObjectsOfType(typeof(CarManager)) as CarManager[];
+				foreach (CarManager yourScriptName in yourScriptArray ) {
+					newCar.GetComponent<CarManager> ().speed = yourScriptName.speed;
+				}
+			}
+
+			first = false;
+
+
+				//carros_pedagio.Add (newCar);
 			//index_carro_pedagio++;
 		}
 	}

@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/manager/ManagerControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/bastaoCollider.cs">
     <Files>
-      <File FileName="Assets/Scripts/manager/ManagerControl.cs" Line="25" Column="38" />
+      <File FileName="Assets/Scripts/manager/ManagerControl.cs" Line="108" Column="18" />
+      <File FileName="Assets/bastaoCollider.cs" Line="102" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
